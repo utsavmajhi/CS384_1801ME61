@@ -16,7 +16,9 @@ def multiply(num1, num2):
 
 # Function to divide two numbers 
 def divide(num1, num2): 
-	#DivisionLogic 
+	#DivisionLogic
+    if (num2==0):
+	    print("Can't divide by 0")
     division = num1/num2
     return division
 	
