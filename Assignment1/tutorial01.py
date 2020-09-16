@@ -19,6 +19,7 @@ def divide(num1, num2):
 	#DivisionLogic
     if (num2==0):
 	    print("Can't divide by 0")
+	    return "Error"
     division = num1/num2
     return division
 	
