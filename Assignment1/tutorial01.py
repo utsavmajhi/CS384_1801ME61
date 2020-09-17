@@ -71,7 +71,7 @@ def printHP(a, d, n):
 	hp=[]
 	if (isinstance(a,(int,float)) and isinstance(d,(int,float)) and isinstance(n,(int))):
 		for i in range(n):
-			term=divide(1,a+multiply(i,d))
-			hp.append(term)
+			aterm=divide(1,divide(1,a)+multiply(i,d))
+			hp.append(aterm)
 	return hp
 
