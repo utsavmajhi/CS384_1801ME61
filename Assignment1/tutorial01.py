@@ -20,7 +20,10 @@ def divide(num1, num2):
     if (num2==0):
 	    return 0
     division = num1/num2
-    return division
+    if (isinstance(division,(float))):
+	    return round(division,3)
+    else:
+	    return division
 
 # Function to add power function
 #You cant use the inbuilt python function x ** y . Write your own function
@@ -57,7 +60,7 @@ def printGP(a, r, n):
 def printAP(a, d, n): 
 	ap=[]
 	if (isinstance(a,(int,float)) and isinstance(d,(int,float)) and isinstance(n,(int))):
-		for i in(n):
+		for i in range(n):
 			term=a + multiply(i,d)
 			ap.append(term)
 	return ap
@@ -66,5 +69,9 @@ def printAP(a, d, n):
 #You cant use the inbuilt python function. Write your own function
 def printHP(a, d, n): 
 	hp=[]
+	if (isinstance(a,(int,float)) and isinstance(d,(int,float)) and isinstance(n,(int))):
+		for i in range(n):
+			term=divide(1,a+multiply(i,d))
+			hp.append(term)
 	return hp
 
