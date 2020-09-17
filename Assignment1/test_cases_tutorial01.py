@@ -18,7 +18,7 @@ student_answers.append(test_case_4)
 test_case_5 = A1.power(2, 2)
 student_answers.append(test_case_5)
 
-test_case_6 = A1.printGP(2,3,5)
+test_case_6 = A1.printGP(2,3,5.5)
 student_answers.append(test_case_6)
 
 print(actual_answers)

@@ -46,13 +46,16 @@ def power(num1, num2): #num1 ^ num2
 #You cant use the inbuilt python function. Write your own function
 def printGP(a, r, n): 
 	gp=[]
+	if (isinstance(a,(int, float)) and isinstance(n,(int))):
+		for i in range(n):
+			temp=multiply(a,power(r,i))
+			gp.append(temp)
 	return gp 
 
 # Python 3 program to print AP.  arithmetic Progression
 #You cant use the inbuilt python function. Write your own function
 def printAP(a, d, n): 
 	ap=[]
-
 	return ap
 
 # Python 3 program to print HP.   Harmonic Progression
