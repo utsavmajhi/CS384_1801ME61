@@ -122,6 +122,7 @@ def sorting(first_list):
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0
+            
     sorted_list=first_list
     for i in range(0,len(sorted_list)):
         for j in range(1,len(sorted_list)):
