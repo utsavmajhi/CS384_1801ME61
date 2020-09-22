@@ -129,8 +129,17 @@ def pcc(first_list, second_list):
     # nse Logic
     if(not(len(first_list)== len(second_list))):
         return 0
-    pcc_value=1
-    return pcc_value
+    x_bar=mean(first_list)
+    y_bar = mean(second_list)
+    list1=[]
+    list2=[]
+    list3=[]
+    for i in range(0,len(first_list)):
+        list1.append((first_list[i]-x_bar)*(second_list[i]-y_bar))
+        list2.append(first_list[i]-x_bar**2)
+        list3.append(second_list[i]-y_bar**2)
+    pcc_value=summation(list1)/(math.sqrt(summation(list2))*math.sqrt(summation(list3)))
+    return round(pcc_value,3)
 
 
 # Function to compute Skewness. You cant use Python functions
