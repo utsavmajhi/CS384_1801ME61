@@ -9,9 +9,7 @@ def mean(first_list):
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0  
-    for i in first_list:
-        sum=sum + i
-    mean_value=sum/size
+    mean_value=summation(first_list)/size
     return round(mean_value,3)
 
 
@@ -49,8 +47,20 @@ def variance(first_list):
 # Function to compute RMSE. You cant use Python functions
 def rmse(first_list, second_list):
     # RMSE Logic
-    rmse_value=1
-    return rmse_value
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    for i in second_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    rmse_value=0
+    sum=0
+    tempsqr=[]
+    for i in range(0,len(first_list)):
+        tempsqr.append((first_list[i]-second_list[i])*(first_list[i]-second_list[i]))
+    import math
+    rmse_value=math.sqrt(summation(tempsqr)/len(first_list))
+    return round(rmse_value,3)
 
 
 # Function to compute mse. You cant use Python functions
