@@ -47,6 +47,9 @@ def variance(first_list):
 # Function to compute RMSE. You cant use Python functions
 def rmse(first_list, second_list):
     # RMSE Logic
+    if(not(len(first_list)== len(second_list))):
+        return 0
+
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0
@@ -66,6 +69,8 @@ def rmse(first_list, second_list):
 # Function to compute mse. You cant use Python functions
 def mse(first_list, second_list):
     # mse Logic
+    if(not(len(first_list)== len(second_list))):
+        return 0
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0
@@ -83,6 +88,8 @@ def mse(first_list, second_list):
 # Function to compute mae. You cant use Python functions
 def mae(first_list, second_list):
     # mae Logic
+    if(not(len(first_list)== len(second_list))):
+        return 0
     mae_value=1
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
@@ -100,6 +107,8 @@ def mae(first_list, second_list):
 # Function to compute NSE. You cant use Python functions
 def nse(first_list, second_list):
     # nse Logic
+    if(not(len(first_list)== len(second_list))):
+        return 0
     nse_value=1
     return nse_value
 
@@ -107,6 +116,8 @@ def nse(first_list, second_list):
 # Function to compute Pearson correlation coefficient. You cant use Python functions
 def pcc(first_list, second_list):
     # nse Logic
+    if(not(len(first_list)== len(second_list))):
+        return 0
     pcc_value=1
     return pcc_value
 
@@ -122,7 +133,7 @@ def sorting(first_list):
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0
-            
+
     sorted_list=first_list
     for i in range(0,len(sorted_list)):
         for j in range(1,len(sorted_list)):
