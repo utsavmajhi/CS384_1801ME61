@@ -1,5 +1,5 @@
 # All decimal 3 places
-
+import math#FOR SQRT FUNCTION
 # Function to compute mean
 def mean(first_list):
     # mean Logic
@@ -33,8 +33,11 @@ def median(first_list):
 # Function to compute Standard deviation. You cant use Python functions
 def standard_deviation(first_list):
     # Standard deviation Logic
-    standard_deviation_value=1
-    return standard_deviation_value
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    standard_deviation_value=math.sqrt(variance(first_list))
+    return round(standard_deviation_value,3)
 
 
 # Function to compute variance. You cant use Python functions
@@ -69,7 +72,7 @@ def rmse(first_list, second_list):
     tempsqr=[]
     for i in range(0,len(first_list)):
         tempsqr.append((first_list[i]-second_list[i])*(first_list[i]-second_list[i]))
-    import math
+    
     rmse_value=math.sqrt(summation(tempsqr)/len(first_list))
     return round(rmse_value,3)
 
