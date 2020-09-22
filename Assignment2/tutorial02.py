@@ -22,9 +22,14 @@ def median(first_list):
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0
+    first_list= sorted(first_list)
+    print(first_list)
     if (len(first_list)%2==1):
         index=int((len(first_list)+1)/2)
-        median_value=first_list[index+1]
+        median_value=first_list[index-1]
+    else:
+        index=int(len(first_list)/2)
+        median_value=(first_list[index-1]+first_list[index])/2
     return round(median_value,3)
 
 
@@ -85,7 +90,13 @@ def skewness(first_list):
     
 def sorting(first_list):
     # Sorting Logic
-    sorted_list=1
+    sorted_list=first_list
+    for i in range(0,len(sorted_list)):
+        for j in range(1,len(sorted_list)):
+            if(sorted_list[i]>sorted_list[j]):
+                temp=sorted_list[i]
+                sorted_list[i]=sorted_list[j]
+                sorted_list[j]=temp
     return sorted_list
 
 
