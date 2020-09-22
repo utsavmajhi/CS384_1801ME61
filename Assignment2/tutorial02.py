@@ -63,10 +63,10 @@ def mse(first_list, second_list):
         if (not(isinstance(i,(int,float)))):
             return 0
     sum=0
+    tempsqr=[]
     for i in range(0,len(first_list)):
-        tempsqr=(first_list[i]-second_list[i])*(first_list[i]-second_list[i])
-        sum=sum+tempsqr
-    mse_value=sum/len(first_list)
+        tempsqr.append((first_list[i]-second_list[i])*(first_list[i]-second_list[i]))
+    mse_value=summation(tempsqr)/len(first_list)
     return round(mse_value,3)
 
 
@@ -99,6 +99,9 @@ def skewness(first_list):
     
 def sorting(first_list):
     # Sorting Logic
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
     sorted_list=first_list
     for i in range(0,len(sorted_list)):
         for j in range(1,len(sorted_list)):
@@ -119,5 +122,10 @@ def kurtosis(first_list):
 # Function to compute sum. You cant use Python functions
 def summation(first_list):
     # sum Logic
-    summation_value=1
+    summation_value=0
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    for i in first_list:
+        summation_value=summation_value+i
     return summation_value
