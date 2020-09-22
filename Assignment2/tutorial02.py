@@ -120,8 +120,21 @@ def nse(first_list, second_list):
     # nse Logic
     if(not(len(first_list)== len(second_list))):
         return 0
-    nse_value=1
-    return nse_value
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    for i in second_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    t1list=[]
+    t2list = []
+    x_bar=mean(first_list)
+    y_bar = mean(second_list)
+    for i in range(0, len(first_list)):
+        t1list.append((first_list[i]-second_list[i])**2)
+        t2list.append((first_list[i]-x_bar)**2)
+    nse_value=1-(summation(t1list)/summation(t2list))
+    return round(nse_value,3)
 
 
 # Function to compute Pearson correlation coefficient. You cant use Python functions
