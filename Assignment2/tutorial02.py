@@ -23,7 +23,6 @@ def median(first_list):
         if (not(isinstance(i,(int,float)))):
             return 0
     first_list= sorted(first_list)
-    print(first_list)
     if (len(first_list)%2==1):
         index=int((len(first_list)+1)/2)
         median_value=first_list[index-1]
@@ -57,8 +56,18 @@ def rmse(first_list, second_list):
 # Function to compute mse. You cant use Python functions
 def mse(first_list, second_list):
     # mse Logic
-    mse_value=1
-    return mse_value
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    for i in second_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    sum=0
+    for i in range(0,len(first_list)):
+        tempsqr=(first_list[i]-second_list[i])*(first_list[i]-second_list[i])
+        sum=sum+tempsqr
+    mse_value=sum/len(first_list)
+    return round(mse_value,3)
 
 
 # Function to compute mae. You cant use Python functions
