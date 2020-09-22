@@ -84,7 +84,17 @@ def mse(first_list, second_list):
 def mae(first_list, second_list):
     # mae Logic
     mae_value=1
-    return mae_value
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    for i in second_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+    tempitemlist=[]
+    for i in range(0, len(first_list)):
+        tempitemlist.append(abs(first_list[i]-second_list[i]))
+    mae_value=summation(tempitemlist)/len(first_list)
+    return round(mae_value,3)
 
 
 # Function to compute NSE. You cant use Python functions
