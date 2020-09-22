@@ -45,12 +45,9 @@ def variance(first_list):
         if (not(isinstance(i,(int,float)))):
             return 0
     x_bar=mean(first_list)
-    print("mean=",x_bar)
     templist=[]
     for i in first_list:
         templist.append((i-x_bar)*(i-x_bar))
-    print(templist)
-    print("Summation=",summation(templist))
     variance_value=summation(templist)/len(first_list)
     return round(variance_value,3)
 
