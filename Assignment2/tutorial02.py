@@ -36,6 +36,7 @@ def standard_deviation(first_list):
     for i in first_list:
         if (not(isinstance(i,(int,float)))):
             return 0
+    #SINCE STANDARD DEVIATION IS JUST SQUARE ROOT OF DEVIATION
     standard_deviation_value=math.sqrt(variance(first_list))
     return round(standard_deviation_value,3)
 
@@ -88,7 +89,6 @@ def mse(first_list, second_list):
     for i in second_list:
         if (not(isinstance(i,(int,float)))):
             return 0
-    sum=0
     tempsqr=[]
     for i in range(0,len(first_list)):
         tempsqr.append((first_list[i]-second_list[i])*(first_list[i]-second_list[i]))
@@ -136,8 +136,18 @@ def pcc(first_list, second_list):
 # Function to compute Skewness. You cant use Python functions
 def skewness(first_list):
     # Skewness Logic
-    skewness_value=1
-    return skewness_value
+    for i in first_list:
+        if (not(isinstance(i,(int,float)))):
+            return 0
+
+    standevia_val=standard_deviation(first_list)
+    mean_val=mean(first_list)
+    templist=[]
+    for i in first_list:
+        templist.append(((i-mean_val)/standevia_val)*((i-mean_val)/standevia_val)*((i-mean_val)/standevia_val))
+
+    skewness_value=summation(templist)/len(first_list)
+    return round(skewness_value,3)
     
 def sorting(first_list):
     # Sorting Logic
