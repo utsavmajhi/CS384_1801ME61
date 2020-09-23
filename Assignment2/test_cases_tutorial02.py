@@ -2,7 +2,6 @@ import unittest
 import tutorial02 as A2
 actual_answers = [0.55, 0.64, 0.30, 0.09, -0.38, 1.99, 0.47, 0.22, 0.40, -1.47, 0.05, 0, 0, 0]
 student_answers = []
-def div(x, y): return x / float(y)
 import numpy as np
 
 x, y = np.loadtxt("results.csv", delimiter=",", usecols=(0, 1), unpack=True, skiprows=1)
