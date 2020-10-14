@@ -250,5 +250,38 @@ def blood_group():
 # Create the new file here and also sort it in this function only.
 def new_file_sort():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+                final_headrow=['id','first_name','last_name']
+                final_headrow=final_headrow+row[2:]
+            else:
+                #for first name and last name fetching
+                full_name=row[1]
+                names_split=re.split(' ',full_name)
+                first_name=names_split[0]
+                last_name=names_split[1]
+                list_fname_lastname=[row[0],first_name,last_name]
+                final_rowlist=list_fname_lastname+row[2:]
+                dirpath='analytics/'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                if(not os.path.exists(dirpath+'studentinfo_cs384_names_split.csv')):
+                    with open(dirpath+'studentinfo_cs384_names_split.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(final_headrow)
+                            writer.writerow(final_rowlist)
+                            fily.close()
+                else:
+                    with open(dirpath+'studentinfo_cs384_names_split.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(final_rowlist)
+                            fily.close()
+    file.close()
+
     pass
-dob()
+
+
+new_file_sort()
