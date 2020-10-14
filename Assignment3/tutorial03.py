@@ -162,6 +162,29 @@ def state():
 
 def blood_group():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+            else:
+                dirpath='analytics/'+'blood_group'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                #fetching blood group of people
+                blood_grp=row[6].lower()
+                if(not os.path.exists(dirpath+'/'+blood_grp+'.csv')):
+                    with open(dirpath+'/'+blood_grp+'.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(headerrow)
+                            writer.writerow(row)
+                            fily.close()
+                else:
+                    with open(dirpath+'/'+blood_grp+'.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(row)
+                            fily.close()
+    file.close()
     pass
 
 
@@ -169,5 +192,3 @@ def blood_group():
 def new_file_sort():
     # Read csv and process
     pass
-
-gender()
