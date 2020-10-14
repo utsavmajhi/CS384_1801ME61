@@ -124,6 +124,29 @@ def email_domain_extract():
 
 def gender():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+            else:
+                dirpath='analytics/'+'gender'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                #fetching Gender of the person
+                std_gender=row[4].lower()
+                if(not os.path.exists(dirpath+'/'+std_gender+'.csv')):
+                    with open(dirpath+'/'+std_gender+'.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(headerrow)
+                            writer.writerow(row)
+                            fily.close()
+                else:
+                    with open(dirpath+'/'+std_gender+'.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(row)
+                            fily.close()
+    file.close()
     pass
 
 
@@ -147,3 +170,4 @@ def new_file_sort():
     # Read csv and process
     pass
 
+gender()
