@@ -157,6 +157,29 @@ def dob():
 
 def state():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+            else:
+                dirpath='analytics/'+'state'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                #fetching blood group of people
+                person_state=row[7].lower()
+                if(not os.path.exists(dirpath+'/'+person_state+'.csv')):
+                    with open(dirpath+'/'+person_state+'.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(headerrow)
+                            writer.writerow(row)
+                            fily.close()
+                else:
+                    with open(dirpath+'/'+person_state+'.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(row)
+                            fily.close()
+    file.close()
     pass
 
 
@@ -192,3 +215,4 @@ def blood_group():
 def new_file_sort():
     # Read csv and process
     pass
+state()
