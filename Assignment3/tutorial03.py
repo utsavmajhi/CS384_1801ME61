@@ -51,10 +51,24 @@ def course():
                             writer.writerow(headerrow)
                             writer.writerow(row)
                             fily.close()
+                else:
+                    #goes to misc.csv
+                    dirpath='analytics/'+'course'
+                    if(not os.path.exists(dirpath)):
+                        os.makedirs(dirpath)
+                    if(not os.path.exists(dirpath+'/'+'misc'+'.csv')):
+                        with open(dirpath+'/'+'misc'+'.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(headerrow)
+                            writer.writerow(row)
+                            fily.close()
+                    else:
+                        with open(dirpath+'/'+'misc.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(row)
+                            fily.close()
+
     file.close()
-
-                
-
     pass
 
 
@@ -283,5 +297,4 @@ def new_file_sort():
 
     pass
 
-
-new_file_sort()
+course()
