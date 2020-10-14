@@ -152,6 +152,42 @@ def gender():
 
 def dob():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+            else:
+                dirpath='analytics/'+'dob'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                #fetching dob of people
+                date_of_birth=row[5]
+                listsplit=re.split('-',date_of_birth)
+                year=int(listsplit[2])
+                month=int(listsplit[1])
+                day=(listsplit[0])
+                #making files for range dates
+                intialyearrange=1995
+                for i in range(0,5):
+                    finalyearrange=intialyearrange+4
+                    if(i==4):
+                        finalyearrange=finalyearrange+1
+                    if(year<=finalyearrange and year>=intialyearrange):
+                        if(not os.path.exists(dirpath+'/'+'bday_'+str(intialyearrange)+'_'+str(finalyearrange)+'.csv')):
+                            with open(dirpath+'/'+'bday_'+str(intialyearrange)+'_'+str(finalyearrange)+'.csv', 'w',newline='') as fily:
+                                writer=csv.writer(fily)
+                                writer.writerow(headerrow)
+                                writer.writerow(row)
+                                fily.close()
+                        else:
+                            with open(dirpath+'/'+'bday_'+str(intialyearrange)+'_'+str(finalyearrange)+'.csv', 'a',newline='') as fily:
+                                writer=csv.writer(fily)
+                                writer.writerow(row)
+                                fily.close()
+                    intialyearrange=intialyearrange+5
+        file.close()
+                
     pass
 
 
@@ -166,7 +202,7 @@ def state():
                 dirpath='analytics/'+'state'
                 if(not os.path.exists(dirpath)):
                     os.makedirs(dirpath)
-                #fetching blood group of people
+                #fetching state of people
                 person_state=row[7].lower()
                 if(not os.path.exists(dirpath+'/'+person_state+'.csv')):
                     with open(dirpath+'/'+person_state+'.csv', 'w',newline='') as fily:
@@ -215,4 +251,4 @@ def blood_group():
 def new_file_sort():
     # Read csv and process
     pass
-state()
+dob()
