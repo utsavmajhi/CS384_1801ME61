@@ -60,6 +60,33 @@ def course():
 
 def country():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+            else:
+                dirpath='analytics/'+'country'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                #fetching country from csv file
+                stdcountry=row[2].lower()
+                #now writing the data accrding to country he/she is residing 
+                if(not os.path.exists(dirpath+'/'+stdcountry)):
+                    with open(dirpath+'/'+stdcountry+'.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(headerrow)
+                            writer.writerow(row)
+                            fily.close()
+                else:
+                    with open(dirpath+'/'+stdcountry+'.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(row)
+                            fily.close()
+        file.close()
+
+
+
     pass
 
 
@@ -93,4 +120,3 @@ def new_file_sort():
     # Read csv and process
     pass
 
-course()
