@@ -72,7 +72,7 @@ def country():
                 #fetching country from csv file
                 stdcountry=row[2].lower()
                 #now writing the data accrding to country he/she is residing 
-                if(not os.path.exists(dirpath+'/'+stdcountry)):
+                if(not os.path.exists(dirpath+'/'+stdcountry+'.csv')):
                     with open(dirpath+'/'+stdcountry+'.csv', 'w',newline='') as fily:
                             writer=csv.writer(fily)
                             writer.writerow(headerrow)
@@ -84,14 +84,41 @@ def country():
                             writer.writerow(row)
                             fily.close()
         file.close()
-
-
-
     pass
 
 
 def email_domain_extract():
     # Read csv and process
+    with open('studentinfo_cs384.csv', 'r') as file:
+        reader=csv.reader(file)
+        for row in reader:
+            if(row[0]=='id'):
+                headerrow=row
+            else:
+                dirpath='analytics/'+'email_domain'
+                if(not os.path.exists(dirpath)):
+                    os.makedirs(dirpath)
+                #fetching email id first
+                full_email_id=row[3]
+                #trimming it using regex to get domain
+                email_domain=re.search(r'@.+',full_email_id).group()
+                fursplit=re.split(r'[.]',email_domain)
+                fur2split=re.split(r'@',fursplit[0])
+                
+                if(not os.path.exists(dirpath+'/'+fur2split[1]+'.csv')):
+                    with open(dirpath+'/'+fur2split[1]+'.csv', 'w',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(headerrow)
+                            writer.writerow(row)
+                            fily.close()
+                else:
+                    with open(dirpath+'/'+fur2split[1]+'.csv', 'a',newline='') as fily:
+                            writer=csv.writer(fily)
+                            writer.writerow(row)
+                            fily.close()
+        file.close()
+
+
     pass
 
 
