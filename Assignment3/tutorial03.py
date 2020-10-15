@@ -1,7 +1,6 @@
 import csv
 import os
 import re
-os.system('cls')
 
 def del_create_analytics_folder():
     # del the analytics folder including subfolder
