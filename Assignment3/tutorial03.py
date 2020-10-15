@@ -289,12 +289,31 @@ def new_file_sort():
                             writer.writerow(final_rowlist)
                             fily.close()
                 else:
-                    with open(dirpath+'studentinfo_cs384_names_split.csv', 'a',newline='') as fily:
+                    with open(dirpath +'studentinfo_cs384_names_split.csv', 'a',newline='') as fily:
                             writer=csv.writer(fily)
                             writer.writerow(final_rowlist)
                             fily.close()
     file.close()
 
-    pass
+    #now for sorted list of accrding to first names
+    listofdict=[]
+    with open('analytics/studentinfo_cs384_names_split.csv', 'r') as file:
+        reader=csv.DictReader(file)
+        for row in reader:
+            listofdict.append(row)
+        sortedlist=sorted(listofdict,key=lambda k: k['first_name'])
+        if(not os.path.exists('analytics/studentinfo_cs384_names_split_sorted_first_name.csv')):
+            with open('analytics/studentinfo_cs384_names_split_sorted_first_name.csv', 'w',newline='') as fily:
+                writer=csv.writer(fily)
+                writer.writerow(final_headrow)
+                for i in sortedlist:
+                    writer.writerow(i.values())
+                fily.close()
+        else:
+            with open('analytics/studentinfo_cs384_names_split_sorted_first_name.csv', 'a',newline='') as fily:
+                writer=csv.writer(fily)
+                for i in sortedlist:
+                    writer.writerow(i.values())
+                fily.close()
 
-course()
+    pass
