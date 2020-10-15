@@ -2,12 +2,18 @@ import csv
 import os
 import re
 os.system('cls')
-if(os.path.exists('analytics')):
-    for root, dirs, files in os.walk('analytics', topdown=False):
-        for name in files:
-            os.remove(os.path.join(root, name))
-        for name in dirs:
-            os.rmdir(os.path.join(root, name))
+
+def del_create_analytics_folder():
+    # del the analytics folder including subfolder
+    # mkdir the analytics folder (only mkdir)
+    if(os.path.exists('analytics')):
+        for root, dirs, files in os.walk('analytics', topdown=False):
+            for name in files:
+                os.remove(os.path.join(root, name))
+            for name in dirs:
+                os.rmdir(os.path.join(root, name))
+        os.rmdir('analytics')
+    pass
 
 def course():
     # Read csv and process
@@ -317,3 +323,4 @@ def new_file_sort():
                 fily.close()
 
     pass
+
