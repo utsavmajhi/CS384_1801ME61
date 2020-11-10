@@ -211,10 +211,75 @@ def rename_Suits(folder_name):
 
 def rename_How_I_Met_Your_Mother(folder_name):
     # rename Logic
+    if(os.path.exists('Subtitles/'+folder_name)):
+        print("Season Number Padding:")
+        seasonpad=int(input())
+        print("Episode Number Padding")
+        episodepad=int(input())
 
+        listoldname=[]
+        listnewnames=[]
+        listfiletype=[]
+        for f in os.scandir('Subtitles/'+folder_name):
+            if(f.is_file()):
+                originalname=f.name
+                
+                split=re.split(r'[-]',originalname)
+                #extract season no 
+                seasplit=re.split(r'[x]',split[1])
+                
+                seasonno=int(seasplit[0])
+                seasonno=str(seasonno)
+                episodeno=int(seasplit[1])
+                episodeno=str(episodeno)
+                
+                reqname=split[len(split)-1]
+                advsplit=re.split(r'\.HDTV|\.720p|\.en|.1080p',reqname)
+                episodename=advsplit[0].strip()
+                if(seasonpad-len(seasonno)>=0):
+                    for i in range(0,seasonpad-len(seasonno)):
+                        seasonno='0'+str(seasonno)
+                if(episodepad-len(episodeno)>=0):
+                    for i in range(0,episodepad-len(episodeno)):
+                        episodeno='0'+str(episodeno)
+                if(seasonpad==1):
+                    seasonno=int(seasonno)
+                if(episodepad==1):
+                    episodeno=int(episodeno)
+
+                pattern=re.compile(r'.mp4')
+                if(re.search(pattern,originalname)):
+                    filetype='.mp4'
+                else:
+                    filetype='.srt'
+                finaltitle=folder_name+' - '+"Season "+str(seasonno)+" Episode "+str(episodeno)+' - '+episodename
+                
+                listoldname.append(originalname)
+                listnewnames.append(finaltitle)
+                listfiletype.append(filetype)
+        for i in range(0,len(listoldname)):
+            if(os.path.exists('Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])):
+                os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+str(i+1)+listfiletype[i])
+            else:
+                os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])
     pass 
-    
-#rename_Game_of_Thrones("Game of Thrones")
-#rename_Sherlock("Sherlock")
-#rename_Suits('Suits')
-rename_FIR('FIR')
+
+
+print("Enter Name of Webseries:")
+name=str(input())
+if(name.lower()=="Game of Thrones".lower()):
+    rename_Game_of_Thrones("Game of Thrones")
+else:
+    if(name.lower()=="Sherlock".lower()):
+        rename_Sherlock("Sherlock")
+    else:
+        if(name.lower()=="Suits".lower()):
+            rename_Suits('Suits')  
+        else:
+            if(name.lower()=="How I Met Your Mother".lower()):
+                rename_How_I_Met_Your_Mother('How I Met Your Mother')
+            else:
+                if(name.lower()=="FIR".lower()):
+                    rename_FIR("FIR")
+                else:
+                    print("Not Found in Present Database")
