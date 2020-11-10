@@ -13,7 +13,7 @@ def rename_Game_of_Thrones(folder_name):
         seasonpad=int(input())
         print("Episode Number Padding")
         episodepad=int(input())
-        #x = [f.name for f in os.scandir('Subtitles/'+folder_name) if f.is_file()]
+
         listoldname=[]
         listnewnames=[]
         for f in os.scandir('Subtitles/'+folder_name):
@@ -46,6 +46,10 @@ def rename_Game_of_Thrones(folder_name):
                 if(episodepad-len(fursplit[1])>=0):
                     for i in range(0,episodepad-len(fursplit[1])):
                         episodeno='0'+str(episodeno)
+                if(seasonpad==1):
+                    seasonno=int(seasonno)
+                if(episodepad==1):
+                    episodeno=int(episodeno)
                 finaltitle=folder_name+' - '+"Season "+str(seasonno)+" Episode "+str(episodeno)+' -'+episodename+filetype
                 #print(finaltitle)
                 listoldname.append(originalname)
@@ -58,6 +62,48 @@ def rename_Game_of_Thrones(folder_name):
 
 def rename_Sherlock(folder_name):
     # rename Logic
+    if(os.path.exists('Subtitles/'+folder_name)):
+        print("Season Number Padding:")
+        seasonpad=int(input())
+        print("Episode Number Padding")
+        episodepad=int(input())
+        listoldname=[]
+        listnewnames=[]
+        for f in os.scandir('Subtitles/'+folder_name):
+            if(f.is_file()):
+                originalname=f.name
+                
+                split=re.split(r'[.E]',originalname)
+                #for season number
+                fursplit=re.split(r'[S]',split[1])
+                seasonno=fursplit[1]
+                #for episode no
+                article = re.sub(r'[E]', '(', originalname)
+                splitepi=re.split(r'[(]',article)
+                fursplit2=re.split(r'[.]',splitepi[1])
+                #fetched episode number
+                episodeno=fursplit2[0]
+
+                if(seasonpad-len(fursplit[0])>=0):
+                    for i in range(0,seasonpad-len(fursplit[1])):
+                        seasonno='0'+str(seasonno)
+                if(episodepad-len(fursplit[1])>=0):
+                    for i in range(0,episodepad-len(fursplit2[0])):
+                        episodeno='0'+str(episodeno)
+
+                if(seasonpad==1):
+                    seasonno=int(seasonno)
+                if(episodepad==1):
+                    episodeno=int(episodeno)
+
+                #fetching filetype
+                filetype=fursplit2[len(fursplit2)-1]
+                finaltitle=folder_name+' - '+"Season "+str(seasonno)+" Episode "+str(episodeno)+'.'+filetype
+                listoldname.append(originalname)
+                listnewnames.append(finaltitle)
+        for i in range(0,len(listoldname)):
+            os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i])
+
     pass 
     
 
@@ -70,4 +116,5 @@ def rename_How_I_Met_Your_Mother(folder_name):
     # rename Logic
     pass 
     
-rename_Game_of_Thrones("Game of Thrones")
+#rename_Game_of_Thrones("Game of Thrones")
+rename_Sherlock("Sherlock")
