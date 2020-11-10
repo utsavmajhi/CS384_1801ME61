@@ -3,6 +3,42 @@ import re
 os.system("cls")
 def rename_FIR(folder_name):
     # rename Logic
+    if(os.path.exists('Subtitles/'+folder_name)):
+        print("Season Number Padding:")
+        seasonpad=int(input())
+        print("Episode Number Padding")
+        episodepad=int(input())
+
+        listoldname=[]
+        listnewnames=[]
+        listfiletype=[]
+
+        for f in os.scandir('Subtitles/'+folder_name):
+            if(f.is_file()):
+                originalname=f.name
+                split=re.findall(r'\d+',originalname)
+                #epiosde number fetched
+                episodeno=split[0]
+                pattern=re.compile(r'.mp4')
+                if(re.search(pattern,originalname)):
+                    filetype='.mp4'
+                else:
+                    filetype='.srt'
+                if(episodepad-len(split[0])>=0):
+                    for i in range(0,episodepad-len(split[0])):
+                        episodeno='0'+str(episodeno)
+                finaltitle=folder_name+' - '+"Episode "+str(episodeno)
+                listoldname.append(originalname)
+                listnewnames.append(finaltitle)
+                listfiletype.append(filetype)
+        for i in range(0,len(listoldname)):
+            if(os.path.exists('Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])):
+                os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+'2'+listfiletype[i])
+            else:
+                os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])
+                
+
+
     pass 
     
 
@@ -180,4 +216,5 @@ def rename_How_I_Met_Your_Mother(folder_name):
     
 #rename_Game_of_Thrones("Game of Thrones")
 #rename_Sherlock("Sherlock")
-rename_Suits('Suits')
+#rename_Suits('Suits')
+rename_FIR('FIR')
