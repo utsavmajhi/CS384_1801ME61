@@ -86,11 +86,71 @@ for i,roll in enumerate(dforign.roll):
             writer = csv.writer(f)
             writer.writerow(filerow)
 
-
-
-
-
+#For overall details of a roll no
+#parsing the individual files which were created above to get the rowd of credits and then calculating all the things
+for file in os.listdir(path):
+    if file=='misc.csv':
+        continue
+    rowd = []
+    totcred = 0
+    totcredclear = 0
+    spilist =[]
+    parsemcredits = []
+    colsk=3
+    with open(os.path.join(path,file),newline='') as csvfile:
+        writer2 = csv.reader(csvfile)
         
+        for row in writer2:
+            if colsk==0:
+                rowd.append(row)
+            else:
+                colsk = colsk -1
+                if colsk==0:
+                    head = row
+
+    dforign = pd.DataFrame(rowd,columns=head)
+    smeunicol = (dforign.Sem).unique()
+    
+    newfile = file.split('_')[0] + '_overall.csv'
+    
+    with open(os.path.join(path,newfile),'w',newline='') as csvfile:
+
+        writer2 = csv.writer(csvfile)
+        rno = file.split('_')[0]
+        writer2.writerow([f'Roll: {rno}'])   
+        writer2.writerow(['Semester','Semester Credits','Semester Credits Cleared','SPI','Total Credits','Total Credits Cleared','CPI'])
+       
+        for sem in smeunicol:
+            s = dforign[dforign.Sem ==sem]
+            sem_credit = 0
+            sem_credit = [sem_credit :=sem_credit + int(i) for i in s.Credits][-1]
+            totcred = totcred + int(sem_credit)
+            cleared_credits = 0
+
+            for grades,credits in zip(s.Grade,s.Credits):
+                if grades in list(grade.keys()) :
+                    if grade[grades]>0:
+                        cleared_credits = cleared_credits + int(credits)
+                    
+            totcredclear = totcredclear + cleared_credits
+            sum_spi = 0
+            for g,c in zip(s.Grade,s.Credits):
+                sum_spi = sum_spi  + int(c) * int(grade[g])
+            
+            #calc spi 
+            spi = sum_spi/sem_credit
+            spilist.append(spi)
+            parsemcredits.append(sem_credit)
+            cpi_sum = 0
+            #calc cpi overall
+            for c,g in zip(parsemcredits,spilist):
+                cpi_sum = cpi_sum + c*g
+            
+            cpi = cpi_sum/sum(parsemcredits)
+            writer2.writerow([sem,sem_credit,cleared_credits,round(spi,2),totcred,totcredclear,round(cpi,2)])
+
+
+
         
 
 
