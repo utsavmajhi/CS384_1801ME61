@@ -58,10 +58,20 @@ def group_allocation(filename, number_of_groups):
                             listbranchcount[j]=listbranchcount[k]
                             listbranchcount[k]=tvalue
         #sorting done
+        #first part of question
         print(listbranchname)
         print(listbranchcount)
         dirpath='groups'
-        
+        with open(dirpath+'/'+'branch_strength'+'.csv', 'w',newline='') as fily:
+            writer=csv.writer(fily)
+            newheader=['Branch_code','Strength']
+            writer.writerow(newheader)
+            for i in range(len(listbranchname)):
+                writer.writerow([listbranchname[i],listbranchcount[i]])
+            fily.close()
+
+
+        #second part of the question
         for ind_branch in listbranchname:
             ind_grplist=[]
             with open(dirpath+'/'+ind_branch+'.csv', 'w',newline='') as fily:
