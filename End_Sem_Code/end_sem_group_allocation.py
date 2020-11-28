@@ -18,7 +18,7 @@ def group_allocation(filename, number_of_groups):
                 bname=branchname[4]
                 rawbranches.append(branchname[4])
             else:
-                header=row[0]
+                headerrow=row
         branchunique=list(set(rawbranches))
         #counting particular branches
     
@@ -60,7 +60,29 @@ def group_allocation(filename, number_of_groups):
         #sorting done
         print(listbranchname)
         print(listbranchcount)
+        dirpath='groups'
+        
+        for ind_branch in listbranchname:
+            ind_grplist=[]
+            with open(dirpath+'/'+ind_branch+'.csv', 'w',newline='') as fily:
+                writer=csv.writer(fily)
+                writer.writerow(headerrow)
+                with open(filename, 'r') as file:
+                    reader3=csv.reader(file)
+                    for row3 in reader3:
+                        print(row3)
+                        if(row3[0]!="Roll"):
+                            t2=re.split(r'[\d+]',row3[0])
+                            if(t2[4]==ind_branch):
+                                ind_grplist.append(row3)
+                for i in ind_grplist:
+                    writer.writerow(i)
+                
+                            
 
+
+
+        
             
 
 
