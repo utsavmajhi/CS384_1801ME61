@@ -2,6 +2,8 @@ import csv
 import os
 import re
 import math
+import operator
+
 if(os.path.exists('groups')):
     for root, dirs, files in os.walk('groups', topdown=False):
         for name in files:
@@ -86,7 +88,8 @@ def group_allocation(filename, number_of_groups):
                 writer=csv.writer(fily)
                 writer.writerow(headerrow)
                 with open(filename, 'r') as file:
-                    reader3=csv.reader(file)
+                    readert2=csv.reader(file)
+                    reader3=sorted(readert2,key=operator.itemgetter(0))
                     for row3 in reader3:
                         
                         if(row3[0]!="Roll"):
@@ -142,7 +145,8 @@ def group_allocation(filename, number_of_groups):
         for uniq_bname in edit_branchname:
             templist=[]
             with open(filename, 'r') as file2:
-                reader4=csv.reader(file2)
+                readert=csv.reader(file2)
+                reader4=sorted(readert,key=operator.itemgetter(0))
                 for row4 in reader4:
                     if(row4[0]!="Roll"):
                         t2_bname=re.split(r'[\d+]',row4[0])
