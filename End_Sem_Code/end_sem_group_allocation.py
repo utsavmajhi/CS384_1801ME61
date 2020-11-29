@@ -73,7 +73,7 @@ def group_allocation(filename, number_of_groups):
         dirpath='groups'
         with open(dirpath+'/'+'branch_strength'+'.csv', 'w',newline='') as fily:
             writer=csv.writer(fily)
-            newheader=['Branch_code','Strength']
+            newheader=['BRANCH_CODE','STRENGTH']
             writer.writerow(newheader)
             for i in range(len(listbranchname)):
                 writer.writerow([listbranchname[i],listbranchcount[i]])
@@ -158,7 +158,11 @@ def group_allocation(filename, number_of_groups):
 
         #Creating Separate Group Files
         for grp_no in range(number_of_groups):
-            with open('groups'+'/Group_G'+str(grp_no+1)+'.csv', 'w',newline='') as file3:
+            if(grp_no<9):
+                padded_grpno='0'+str(grp_no+1)
+            else:
+                padded_grpno=str(grp_no+1)
+            with open('groups'+'/Group_G'+padded_grpno+'.csv', 'w',newline='') as file3:
                 writer3=csv.writer(file3)
                 writer3.writerow(headerrow)
                 for i in range(len(edit_branchname)):
@@ -168,6 +172,38 @@ def group_allocation(filename, number_of_groups):
                     for j in range(curr_batch_count):
                         writer3.writerow(temp2[0])
                         temp2.pop(0)
+        #Part 4 of the question
+        #Creating statistics file
+        with open('groups'+'/stats_grouping'+'.csv', 'w',newline='') as file4:
+            writer4=csv.writer(file4)
+            stat_header=['group','total']
+            for i in edit_branchname:
+                stat_header.append(i)
+            print(stat_header)
+            writer4.writerow(stat_header)
+            for grpno in range(number_of_groups):
+                details_list=[]
+                if(grpno<9):
+                    padded_grpno='0'+str(grpno+1)
+                else:
+                    padded_grpno=str(grpno+1)
+                grp_name="Group_G"+padded_grpno
+                details_list.append(grp_name+'.csv')
+                init_tot=0
+                branch_specs=[]
+                for j in range(len(edit_branchname)):
+                    init_tot=init_tot+Distri_Mat[j][grpno]
+                    branch_specs.append(Distri_Mat[j][grpno])
+                details_list.append(init_tot)
+                for m in branch_specs:
+                    details_list.append(m)
+                writer4.writerow(details_list)
+                
+
+
+            
+
+
                         
 
 
