@@ -17,8 +17,9 @@ def group_allocation(filename, number_of_groups):
     rollnoorig=[]
     rawbranches=[]
     branchcount_dict = {}
-    if(~os.path.exists('groups')):
+    if(not os.path.exists('groups')):
         os.makedirs('groups')
+
 
     with open(filename, 'r') as file:
         reader=csv.reader(file)
