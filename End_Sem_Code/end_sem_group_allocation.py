@@ -65,6 +65,7 @@ def group_allocation(filename, number_of_groups):
                             listbranchcount[k]=tvalue
         #sorting done
         #first part of question
+        #############################################################################
         print(listbranchname)
         print(listbranchcount)
         dirpath='groups'
@@ -75,9 +76,10 @@ def group_allocation(filename, number_of_groups):
             for i in range(len(listbranchname)):
                 writer.writerow([listbranchname[i],listbranchcount[i]])
             fily.close()
-
-
+        ################################################################################
+        
         #second part of the question
+        ##################################################################################
         for ind_branch in listbranchname:
             ind_grplist=[]
             with open(dirpath+'/'+ind_branch+'.csv', 'w',newline='') as fily:
@@ -95,7 +97,10 @@ def group_allocation(filename, number_of_groups):
                 for i in ind_grplist:
                     writer.writerow(i)
                 fily.close()
+        ####################################################################################
+
         #third part of the question
+        ##########################################################################
         edit_branchname=listbranchname
         edit_branchcount=listbranchcount
         #initialisation of matrix
@@ -111,7 +116,10 @@ def group_allocation(filename, number_of_groups):
             left_over_Mat.append(left)
         print(Distri_Mat)
         print(left_over_Mat)
+        #############################################################################
+
         #consuming leftover mat into the final matrix
+        ##########################################################################
         curr_pointer=0
         c=0
         while(curr_pointer<len(left_over_Mat)):
@@ -127,6 +135,40 @@ def group_allocation(filename, number_of_groups):
                 if(curr_pointer==len(left_over_Mat)):
                     break
         print(Distri_Mat)
+        ##########################################################################
+        #Packing of Groups
+        Distri_Dict_Branches={}
+        
+        for uniq_bname in edit_branchname:
+            templist=[]
+            with open(filename, 'r') as file2:
+                reader4=csv.reader(file2)
+                for row4 in reader4:
+                    if(row4[0]!="Roll"):
+                        t2_bname=re.split(r'[\d+]',row4[0])
+                        final_bname=t2_bname[4]
+                        if(uniq_bname==final_bname):
+                            templist.append(row4)
+                file2.close()
+            Distri_Dict_Branches[uniq_bname]=templist
+
+        #Creating Separate Group Files
+        for grp_no in range(number_of_groups):
+            with open('groups'+'/Group_G'+str(grp_no+1)+'.csv', 'w',newline='') as file3:
+                writer3=csv.writer(file3)
+                writer3.writerow(headerrow)
+                for i in range(len(edit_branchname)):
+                    curr_bname=edit_branchname[i]
+                    curr_batch_count=Distri_Mat[i][grp_no]
+                    temp2=Distri_Dict_Branches[curr_bname]
+                    for j in range(curr_batch_count):
+                        writer3.writerow(temp2[0])
+                        temp2.pop(0)
+                        
+
+
+
+        
             
 filename = "Btech_2020_master_data.csv"
 number_of_groups = 12 
