@@ -204,15 +204,6 @@ def group_allocation(filename, number_of_groups):
                 
 
 
-            
-
-
-                        
-
-
-
-        
-            
 filename = "Btech_2020_master_data.csv"
 number_of_groups = 12 
 group_allocation(filename, number_of_groups)
