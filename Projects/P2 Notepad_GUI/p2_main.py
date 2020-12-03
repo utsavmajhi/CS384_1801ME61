@@ -14,6 +14,7 @@ undoList=[]
 redoList=[]
 ovr_filename=''
 
+
 #---------------------------------------------------FUNCTIONS--------------------------------------------------------------
 # open file
 def file():
@@ -170,7 +171,7 @@ def far():
 	b1=Button(t2,text='Find',command=find).grid(row=2,column=0,sticky=E)
 	b2=Button(t2,text='Replace',command=rep).grid(row=2,column=1)
 
-# _______________________________________________________________________________________________________________________________
+
 # -----------------------Text Widget--------------------------------------
 t1=Text(root,font='Consolas 25')
 t1.bind('<Key>',press)

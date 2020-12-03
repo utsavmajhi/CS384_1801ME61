@@ -127,7 +127,10 @@ def overall_spi_cpi():
             for sem in smeunicol:
                 s = dforign[dforign.Sem ==sem]
                 sem_credit = 0
-                sem_credit = [sem_credit :=sem_credit + int(i) for i in s.Credits][-1]
+                t=0
+                for i in s.Credits:
+                    t=int(i)+t
+                    sem_credit=t
                 totcred = totcred + int(sem_credit)
                 cleared_credits = 0
 
