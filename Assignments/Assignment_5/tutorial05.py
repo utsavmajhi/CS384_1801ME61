@@ -36,6 +36,7 @@ def rename_FIR(folder_name):
                 os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+'2'+listfiletype[i])
             else:
                 os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])
+        print("Done renaming")
                 
 
 
@@ -93,6 +94,7 @@ def rename_Game_of_Thrones(folder_name):
                 #APPLYING RENAMING FUNCTION TO ACTUAL FILE
         for i in range(0,len(listoldname)):
             os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i])
+        print("Done renaming")
     pass 
     
 
@@ -139,6 +141,7 @@ def rename_Sherlock(folder_name):
                 listnewnames.append(finaltitle)
         for i in range(0,len(listoldname)):
             os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i])
+        print("Done renaming")
 
     pass 
     
@@ -206,6 +209,7 @@ def rename_Suits(folder_name):
                 os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+'2'+listfiletype[i])
             else:
                 os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])
+        print("Done renaming")
     pass 
     
 
@@ -262,24 +266,30 @@ def rename_How_I_Met_Your_Mother(folder_name):
                 os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+str(i+1)+listfiletype[i])
             else:
                 os.rename('Subtitles/'+folder_name+'/'+listoldname[i], 'Subtitles/'+folder_name+'/'+listnewnames[i]+listfiletype[i])
+        print("Done renaming")
     pass 
 
 
-print("Enter Name of Webseries:")
-name=str(input())
-if(name.lower()=="Game of Thrones".lower()):
+print("Enter the no corresponding to the Webseries:")
+print("1.FIR")
+print("2.Game of Thrones")
+print("3.How I met Your Mother")
+print("4.Sherlock")
+print("5.Suits")
+name=int(input())
+if(name==2):
     rename_Game_of_Thrones("Game of Thrones")
 else:
-    if(name.lower()=="Sherlock".lower()):
+    if(name==4):
         rename_Sherlock("Sherlock")
     else:
-        if(name.lower()=="Suits".lower()):
+        if(name==5):
             rename_Suits('Suits')  
         else:
-            if(name.lower()=="How I Met Your Mother".lower()):
+            if(name==3):
                 rename_How_I_Met_Your_Mother('How I Met Your Mother')
             else:
-                if(name.lower()=="FIR".lower()):
+                if(name==1):
                     rename_FIR("FIR")
                 else:
-                    print("Not Found in Present Database")
+                    print("Not Found in Present Database or wrong input")
